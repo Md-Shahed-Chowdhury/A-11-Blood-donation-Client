@@ -103,11 +103,9 @@ const Nav = () => {
                 <li>
                   <a>Name:{user.displayName}</a>
                 </li>
+                
                 <li>
-                  <NavLink to="myProfile">My Profile</NavLink>
-                </li>
-                <li>
-                  <NavLink to="/my-activities">My Activities</NavLink>
+                  <NavLink to="/dashboard">Dashboard</NavLink>
                 </li>
                 <li>
                   <Link

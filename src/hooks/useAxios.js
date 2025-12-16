@@ -11,7 +11,7 @@ const useAxios = () => {
 
   useEffect(() => {
     const interceptor = axiosInstance.interceptors.request.use((config) => {
-      config.headers.authorization = `bearer ${user?.email || ""}`;
+      config.headers.authorization = `bearer ${user?.accessToken || ""}`;
       return config;
     });
 

@@ -9,6 +9,7 @@ import DashHome from "../pages/DashHome"
 import MyDonation from "../pages/MyDonation"
 import CreateDonation from "../pages/CreateDonation";
 import Profile from "../pages/Profile";
+import PrivateRoute from "../pages/PrivateRoute";
 const router  = createBrowserRouter([
     {
         path:"/",
@@ -34,7 +35,7 @@ const router  = createBrowserRouter([
     },
     {
         path:"/dashboard",
-        element:<Dashboard></Dashboard>,
+        element:<PrivateRoute><Dashboard></Dashboard></PrivateRoute>,
         children:[
             {
                 index:true,

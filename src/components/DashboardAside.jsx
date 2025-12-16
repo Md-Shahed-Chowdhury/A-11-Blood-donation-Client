@@ -1,7 +1,11 @@
 import { NavLink } from "react-router";
 import { FaHome, FaTint, FaPlusCircle, FaUser } from "react-icons/fa";
+import { HiDotsVertical } from "react-icons/hi";
+import { useState } from "react";
 
 const DashboardAside = () => {
+  const [open, setOpen] = useState(false);
+
   const linkClass = ({ isActive }) =>
     `flex items-center gap-3 px-4 py-3 rounded-lg font-medium transition 
      ${
@@ -11,38 +15,57 @@ const DashboardAside = () => {
      }`;
 
   return (
-    <aside className="w-64 min-h-screen bg-white border-r shadow-md p-4">
-      {/* Logo / Title */}
-      <div className="mb-8 text-center">
-        <h2 className="text-2xl font-bold text-red-600">
-          Blood<span className="text-gray-800">Care</span>
-        </h2>
-        <p className="text-sm text-gray-500">Donor Dashboard</p>
-      </div>
+    <>
+      {/* ✅ Mobile Toggle Button */}
+      <button
+        onClick={() => setOpen((prev) => !prev)}
+        className="md:hidden fixed top-4 left-4 z-[100] p-2 rounded-lg bg-red-600 text-white shadow-lg"
+      >
+        <HiDotsVertical size={22} />
+      </button>
 
-      {/* Navigation */}
-      <nav className="space-y-2">
-        <NavLink to="/dashboard" end className={linkClass}>
-          <FaHome />
-          Home
-        </NavLink>
+      {/* Overlay */}
+      {open && (
+        <div
+          onClick={() => setOpen(false)}
+          className="fixed inset-0 bg-black/40 z-40 md:hidden"
+        />
+      )}
 
-        <NavLink to="/dashboard/my-donation" className={linkClass}>
-          <FaTint />
-          My Donation
-        </NavLink>
+      {/* Sidebar */}
+      <aside
+        className={`fixed md:static top-0 left-0 z-50
+        w-64 min-h-screen bg-white border-r shadow-md p-4
+        transform transition-transform duration-300
+        ${open ? "translate-x-0" : "-translate-x-full"}
+        md:translate-x-0`}
+      >
+        <div className="mb-8 text-center">
+          <h2 className="text-2xl font-bold text-red-600">
+            Blood<span className="text-gray-800">Care</span>
+          </h2>
+          <p className="text-sm text-gray-500">Donor Dashboard</p>
+        </div>
 
-        <NavLink to="/dashboard/create-donation" className={linkClass}>
-          <FaPlusCircle />
-          Create Donation
-        </NavLink>
+        <nav className="space-y-2">
+          <NavLink to="/dashboard" end className={linkClass} onClick={() => setOpen(false)}>
+            <FaHome /> Home
+          </NavLink>
 
-        <NavLink to="/dashboard/profile" className={linkClass}>
-          <FaUser />
-          Profile
-        </NavLink>
-      </nav>
-    </aside>
+          <NavLink to="/dashboard/my-donation" className={linkClass} onClick={() => setOpen(false)}>
+            <FaTint /> My Donation
+          </NavLink>
+
+          <NavLink to="/dashboard/create-donation" className={linkClass} onClick={() => setOpen(false)}>
+            <FaPlusCircle /> Create Donation
+          </NavLink>
+
+          <NavLink to="/dashboard/profile" className={linkClass} onClick={() => setOpen(false)}>
+            <FaUser /> Profile
+          </NavLink>
+        </nav>
+      </aside>
+    </>
   );
 };
 

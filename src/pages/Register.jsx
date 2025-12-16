@@ -31,7 +31,7 @@ const Register = () => {
         toast(error.message);
       });
   };
-  const handleRegister = async(e) => {
+  const handleRegister = async (e) => {
     e.preventDefault();
     const regex = /^(?=.*[A-Z])(?=.*[a-z])(?=.*[^A-Za-z0-9]).{6,}$/;
 
@@ -42,28 +42,32 @@ const Register = () => {
     const file = photoUrl.files[0];
     const password = form.password.value;
     let result;
-    try{
-       result= await axios.post("https://api.imgbb.com/1/upload?key=70b53b2348bb8f3f317563c7b7814e63",{image:file},{
-      headers:{
-         'Content-Type': 'multipart/form-data'
+    try {
+      result = await axios.post(
+        "https://api.imgbb.com/1/upload?key=70b53b2348bb8f3f317563c7b7814e63",
+        { image: file },
+        {
+          headers: {
+            "Content-Type": "multipart/form-data",
+          },
         }
-    })
+      );
+    } catch (error) {
+      console.log("error in imgbb", error);
     }
-    catch(error){
-      console.log("error in imgbb",error);
-    }
-    
-    photoUrl = result.data.data.display_url;
-    console.log(photoUrl)
 
-    
+    photoUrl = result.data.data.display_url;
+    console.log(photoUrl);
+
     setError("");
     if (password != confirmPass) {
       setError("Password should be same in both fields");
       return;
     }
     const upazila = form.upazila.value;
-    const district = districts.find((district) => myDistrict == district.id).name;
+    const district = districts.find(
+      (district) => myDistrict == district.id
+    ).name;
     const bloodGroup = form.bloodGroup.value;
     if (!regex.test(password)) {
       setError(
@@ -81,12 +85,13 @@ const Register = () => {
       district,
       bloodGroup,
     };
-    console.log("new",newUser);
-    
+    console.log("new", newUser);
+
     emailRegister(email, password)
       .then((user) => {
-        axiosInstance.post("/newUser",newUser)
-        .then(data=>console.log(data.data));
+        axiosInstance
+          .post("/newUser", newUser)
+          .then((data) => console.log(data.data));
         const CurrentUser = user.user;
         toast("Registered Successfully");
         updateProfile(auth.currentUser, {
@@ -131,7 +136,10 @@ const Register = () => {
           </div>
           <div className="card bg-primary max-w-md md:w-120 shrink-0 shadow-2xl p-3 md:p-6 lg:p-8">
             <h2 className="text-center text-2xl md:text-4xl font-bold">
-              Welcome To Blood Donation
+              Welcome To{" "}
+              <h2 className="text-2xl font-bold text-red-600">
+                Blood<span className="text-gray-800">Care</span>
+              </h2>
             </h2>
             <p className="text-center mt-2">A blood donation community</p>
             <div className="card-body">

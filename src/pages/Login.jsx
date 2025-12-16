@@ -45,15 +45,18 @@ const Login = () => {
       <div className="hero">
         <div className="hero-content flex-col">
           <div className="text-center lg:text-left">
-            <h1 className="text-5xl font-bold">Login to Blood Donation!</h1>
+            <h1 className="text-5xl font-bold text-center">
+              Login to{" "}
+              <h2 className="text-2xl font-bold text-red-600">
+                Blood<span className="text-gray-800">Care</span>
+              </h2>
+            </h1>
           </div>
           <div className="card bg-primary max-w-md md:w-120 shrink-0 shadow-2xl p-3 md:p-6 lg:p-8">
             <h2 className="text-center text-2xl md:text-4xl font-bold">
               Welcome Back!
             </h2>
-            <p className="text-center mt-2">
-                A blood donation community
-            </p>
+            <p className="text-center mt-2">A blood donation community</p>
             <div className="card-body">
               <form onSubmit={handleLogin}>
                 <fieldset className="fieldset">
@@ -105,10 +108,7 @@ const Login = () => {
               </NavLink>
             </p>
             <hr />
-            <button
-              onClick={handleGoogleLogin}
-              className="btn mt-4 btn-accent"
-            >
+            <button onClick={handleGoogleLogin} className="btn mt-4 btn-accent">
               <FaGoogle /> Continue with Google
             </button>
           </div>

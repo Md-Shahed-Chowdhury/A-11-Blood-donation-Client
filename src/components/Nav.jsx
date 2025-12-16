@@ -60,7 +60,9 @@ const Nav = () => {
             alt=""
             className="w-12"
           />
-          <a className="btn btn-ghost text-xl">Blood Donation</a>
+          <h2 className="text-2xl font-bold text-red-600">
+          Blood<span className="text-gray-800">Care</span>
+        </h2>
         </div>
       </div>
       <div className="navbar-center hidden lg:flex">

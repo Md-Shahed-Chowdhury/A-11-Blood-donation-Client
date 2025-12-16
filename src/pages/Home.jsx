@@ -1,6 +1,7 @@
 import React from 'react';
 import Banner from '../components/Banner';
 import FeaturedSection from '../components/FeaturedSection';
+import ContactUs from '../components/ContactUs';
 
 
 const Home = () => {
@@ -8,6 +9,7 @@ const Home = () => {
         <div>
             <Banner></Banner>
             <FeaturedSection></FeaturedSection>
+            <ContactUs></ContactUs>
         </div>
     );
 };

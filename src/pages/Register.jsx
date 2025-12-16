@@ -6,6 +6,7 @@ import { updateProfile } from "firebase/auth";
 import auth from "../firebase/firebase.init";
 import { toast } from "react-toastify";
 import axios from "axios";
+import useAxios from "../hooks/useAxios";
 
 const Register = () => {
   const { emailRegister, setUser, googleLogin } = use(MyContext);
@@ -16,6 +17,7 @@ const Register = () => {
   const [upazilas, setUpazilas] = useState([]);
   const [myDistrict, setMyDistrict] = useState(null);
   const [confirmPass, setConfirmPass] = useState("");
+  const axiosInstance = useAxios();
 
   const handleGoogleLogin = () => {
     googleLogin()
@@ -39,13 +41,20 @@ const Register = () => {
     let photoUrl = form.photoUrl;
     const file = photoUrl.files[0];
     const password = form.password.value;
-    const result = await axios.post("https://api.imgbb.com/1/upload?key=70b53b2348bb8f3f317563c7b7814e63",{image:file},{
+    let result;
+    try{
+       result= await axios.post("https://api.imgbb.com/1/upload?key=70b53b2348bb8f3f317563c7b7814e63",{image:file},{
       headers:{
          'Content-Type': 'multipart/form-data'
         }
     })
+    }
+    catch(error){
+      console.log("error in imgbb",error);
+    }
     
     photoUrl = result.data.data.display_url;
+    console.log(photoUrl)
 
     
     setError("");
@@ -76,7 +85,7 @@ const Register = () => {
     
     emailRegister(email, password)
       .then((user) => {
-        axios.post("http://localhost:3000/newUser",newUser)
+        axiosInstance.post("/newUser",newUser)
         .then(data=>console.log(data.data));
         const CurrentUser = user.user;
         toast("Registered Successfully");
@@ -122,9 +131,9 @@ const Register = () => {
           </div>
           <div className="card bg-primary max-w-md md:w-120 shrink-0 shadow-2xl p-3 md:p-6 lg:p-8">
             <h2 className="text-center text-2xl md:text-4xl font-bold">
-              Welcome To EcoTrack
+              Welcome To Blood Donation
             </h2>
-            <p className="text-center mt-2">A Sustainable Living Community</p>
+            <p className="text-center mt-2">A blood donation community</p>
             <div className="card-body">
               <form onSubmit={handleRegister}>
                 <fieldset className="fieldset">

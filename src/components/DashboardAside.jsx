@@ -3,11 +3,12 @@ import { FaHome, FaTint, FaPlusCircle, FaUser } from "react-icons/fa";
 import { HiDotsVertical } from "react-icons/hi";
 import { use, useState } from "react";
 import { MyContext } from "../provider/ContextProvider";
+import { IoArrowBackCircle } from "react-icons/io5";
 
 const DashboardAside = () => {
   const [open, setOpen] = useState(false);
   const {role} = use(MyContext);
-
+  console.log(role)
   const linkClass = ({ isActive }) =>
     `flex items-center gap-3 px-4 py-3 rounded-lg font-medium transition 
      ${
@@ -18,7 +19,7 @@ const DashboardAside = () => {
 
   return (
     <>
-      {/* ✅ Mobile Toggle Button */}
+      {/*Mobile Toggle Button */}
       <button
         onClick={() => setOpen((prev) => !prev)}
         className="md:hidden fixed top-4 left-4 z-[100] p-2 rounded-lg bg-red-600 text-white shadow-lg"
@@ -64,6 +65,9 @@ const DashboardAside = () => {
 
           <NavLink to="/dashboard/profile" className={linkClass} onClick={() => setOpen(false)}>
             <FaUser /> Profile
+          </NavLink>
+          <NavLink to="/" className={linkClass} onClick={() => setOpen(false)}>
+            <IoArrowBackCircle /> Back
           </NavLink>
         </nav>
       </aside>

@@ -35,12 +35,12 @@ const passReset = (email) => {
 const logOut = () => {
   return signOut(auth);
 };
- 
+
 const ContextProvider = ({ children }) => {
   const [user, setUser] = useState(null);
   const [loading, setLoading] = useState(true);
-  const [role,setRole] = useState(null);
-  
+  const [role, setRole] = useState(null);
+
   const contextData = {
     emailRegister,
     user,
@@ -52,20 +52,27 @@ const ContextProvider = ({ children }) => {
     loading,
     setLoading,
     role,
-    setRole
+    setRole,
   };
- 
+
   
   useEffect(() => {
-    const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
+    const unsubscribe = onAuthStateChanged(auth, async (currentUser) => {
       setUser(currentUser);
-      axiosInstance.get(`getRole/${user?.email}`)
-      .then(data=>setRole(data.data.role));
-      setLoading(false);
 
+      if (currentUser) {
+        const res = await axiosInstance.get(`getRole/${currentUser.email}`);
+        setRole(res.data.role);
+      } else {
+        setRole(null);
+      }
+
+      setLoading(false);
     });
+
     return () => unsubscribe();
-  }, [user]);
+  }, []);
+
   return <MyContext value={contextData}>{children}</MyContext>;
 };
 

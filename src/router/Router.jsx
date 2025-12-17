@@ -5,13 +5,13 @@ import Login from "../pages/Login";
 import Register from "../pages/Register";
 import PendingRequest from "../pages/PendingRequest";
 import Dashboard from "../layouts/Dashboard";
-import DashHome from "../pages/DashHome"
 import MyDonation from "../pages/MyDonation"
 import CreateDonation from "../pages/CreateDonation";
 import Profile from "../pages/Profile";
 import PrivateRoute from "../pages/PrivateRoute";
 import PendingDetails from "../pages/PendingDetails";
 import SearchDonors from "../pages/SearchDonors";
+import DashboardHome from "../pages/DashboardHome";
 const router  = createBrowserRouter([
     {
         path:"/",
@@ -50,7 +50,7 @@ const router  = createBrowserRouter([
         children:[
             {
                 index:true,
-                element:<DashHome></DashHome>
+                element:<DashboardHome></DashboardHome>
             },
             {
                 path:"/dashboard/my-donation",

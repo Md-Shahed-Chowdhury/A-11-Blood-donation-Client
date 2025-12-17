@@ -11,6 +11,7 @@ import CreateDonation from "../pages/CreateDonation";
 import Profile from "../pages/Profile";
 import PrivateRoute from "../pages/PrivateRoute";
 import PendingDetails from "../pages/PendingDetails";
+import SearchDonors from "../pages/SearchDonors";
 const router  = createBrowserRouter([
     {
         path:"/",
@@ -36,6 +37,10 @@ const router  = createBrowserRouter([
                 path:"/pendingDetails/:id",
                element:<PrivateRoute><PendingDetails></PendingDetails></PrivateRoute>,
 
+            },
+            {
+                path:"/searchDonors",
+                element:<SearchDonors></SearchDonors>
             }
         ]
     },

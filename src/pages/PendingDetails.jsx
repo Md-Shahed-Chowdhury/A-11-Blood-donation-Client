@@ -15,6 +15,7 @@ const PendingDetails = () => {
 
   const handleStatusChange = () => {
     axiosInstance.patch(`/pendingRequestUpdate/${id}`).then((data) => {
+
       if (data.data.modifiedCount > 0) {
         toast("Status updated from pending to inprogress");
         setStatusUpdate(!statusUpdate);

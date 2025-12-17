@@ -51,7 +51,9 @@ const Nav = () => {
             <li>
               <NavLink to="/pendingRequest">Donation Request</NavLink>
             </li>
-            
+            <li>
+              <NavLink to="/searchDonors">Search Donors</NavLink>
+            </li>
           </ul>
         </div>
         <div className="flex items-center">
@@ -72,6 +74,9 @@ const Nav = () => {
             </li>
             <li>
               <NavLink to="/pendingRequest">Donation Request</NavLink>
+            </li>
+            <li>
+              <NavLink to="/searchDonors">Search Donors</NavLink>
             </li>
         </ul>
       </div>

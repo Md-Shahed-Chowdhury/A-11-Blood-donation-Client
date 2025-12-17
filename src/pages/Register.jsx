@@ -125,7 +125,7 @@ const Register = () => {
         setUpazilas([...data]);
       });
   }, []);
-  console.log(myDistrict);
+  
 
   return (
     <div>

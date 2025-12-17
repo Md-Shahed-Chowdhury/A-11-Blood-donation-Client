@@ -101,7 +101,7 @@ const DashboardHome = () => {
                         View
                       </button>
 
-                      <button className="btn btn-xs btn-secondary">
+                      <button className="btn btn-xs bg-black text-white">
                         Edit
                       </button>
                     </td>

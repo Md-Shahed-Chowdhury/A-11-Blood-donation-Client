@@ -1,13 +1,27 @@
-import { useContext, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { toast } from "react-toastify";
 import { MyContext } from "../provider/ContextProvider";
 import useAxios from "../hooks/useAxios";
 
 const CreateDonation = () => {
   const { user } = useContext(MyContext);
-  console.log(user);
   const axiosInstance = useAxios();
   const [loading, setLoading] = useState(false);
+
+  const [districts, setDistricts] = useState([]);
+  const [upazilas, setUpazilas] = useState([]);
+  const [selectedDistrictId, setSelectedDistrictId] = useState("");
+
+  // fetch district & upazila
+  useEffect(() => {
+    fetch("/district.json")
+      .then((res) => res.json())
+      .then((data) => setDistricts(data));
+
+    fetch("/upazila.json")
+      .then((res) => res.json())
+      .then((data) => setUpazilas(data));
+  }, []);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -15,12 +29,18 @@ const CreateDonation = () => {
 
     const form = e.target;
 
+    const districtName = districts.find(
+      (d) => d.id == selectedDistrictId
+    )?.name;
+
     const donationRequest = {
       requesterName: user?.displayName,
       requesterEmail: user?.email,
       recipientName: form.recipientName.value,
       hospitalName: form.hospitalName.value,
       address: form.address.value,
+      district: districtName,
+      upazila: form.upazila.value,
       bloodGroup: form.bloodGroup.value,
       donationDate: form.donationDate.value,
       donationTime: form.donationTime.value,
@@ -29,12 +49,11 @@ const CreateDonation = () => {
       createdAt: new Date(),
     };
 
-    console.log(donationRequest);
     axiosInstance.post("/add-blood-request", donationRequest).then((data) => {
       if (data.data.insertedId) {
-        console.log(data.data)
         toast.success("Donation request created successfully!");
         form.reset();
+        setSelectedDistrictId("");
         setLoading(false);
       }
     });
@@ -47,6 +66,7 @@ const CreateDonation = () => {
       </h1>
 
       <form onSubmit={handleSubmit} className="space-y-5">
+        
         <div>
           <label className="label">Requester Name</label>
           <input
@@ -67,23 +87,60 @@ const CreateDonation = () => {
           />
         </div>
 
+        
         <div>
           <label className="label">Recipient Name</label>
           <input
             type="text"
             name="recipientName"
-            placeholder="Enter recipient name"
             className="input input-bordered w-full"
             required
           />
         </div>
+      
+        <div>
+          <label className="label">District</label>
+          <select
+            className="select select-bordered w-full"
+            required
+            onChange={(e) => setSelectedDistrictId(e.target.value)}
+          >
+            <option value="" disabled selected>
+              Select District
+            </option>
+            {districts.map((d) => (
+              <option key={d.id} value={d.id}>
+                {d.name}
+              </option>
+            ))}
+          </select>
+        </div>
 
+        
+        <div>
+          <label className="label">Upazila</label>
+          <select
+            name="upazila"
+            className="select select-bordered w-full"
+            required
+          >
+            <option value="" disabled selected>
+              Select Upazila
+            </option>
+            {upazilas
+              .filter((u) => u.district_id == selectedDistrictId)
+              .map((u) => (
+                <option key={u.id} value={u.name}>
+                  {u.name}
+                </option>
+              ))}
+          </select>
+        </div>
         <div>
           <label className="label">Hospital Name</label>
           <input
             type="text"
             name="hospitalName"
-            placeholder="Dhaka Medical College Hospital"
             className="input input-bordered w-full"
             required
           />
@@ -94,12 +151,14 @@ const CreateDonation = () => {
           <input
             type="text"
             name="address"
-            placeholder="Zahir Raihan Rd, Dhaka"
             className="input input-bordered w-full"
             required
           />
         </div>
 
+        
+
+        
         <div>
           <label className="label">Blood Group</label>
           <select
@@ -118,6 +177,7 @@ const CreateDonation = () => {
           </select>
         </div>
 
+        
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
           <div>
             <label className="label">Donation Date</label>
@@ -140,22 +200,18 @@ const CreateDonation = () => {
           </div>
         </div>
 
+       
         <div>
           <label className="label">Request Message</label>
           <textarea
             name="message"
             rows="4"
-            placeholder="Explain why blood is needed..."
             className="textarea textarea-bordered w-full"
             required
           ></textarea>
         </div>
 
-        <button
-          type="submit"
-          disabled={loading}
-          className="btn btn-error w-full"
-        >
+        <button type="submit" disabled={loading} className="btn btn-error w-full">
           {loading ? "Requesting..." : "Request Donation"}
         </button>
       </form>

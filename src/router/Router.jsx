@@ -10,6 +10,7 @@ import MyDonation from "../pages/MyDonation"
 import CreateDonation from "../pages/CreateDonation";
 import Profile from "../pages/Profile";
 import PrivateRoute from "../pages/PrivateRoute";
+import PendingDetails from "../pages/PendingDetails";
 const router  = createBrowserRouter([
     {
         path:"/",
@@ -30,6 +31,11 @@ const router  = createBrowserRouter([
             {
                 path:"/pendingRequest",
                 element:<PendingRequest></PendingRequest>
+            },
+            {
+                path:"/pendingDetails/:id",
+               element:<PrivateRoute><PendingDetails></PendingDetails></PrivateRoute>,
+
             }
         ]
     },

@@ -1,10 +1,12 @@
 import { NavLink } from "react-router";
 import { FaHome, FaTint, FaPlusCircle, FaUser } from "react-icons/fa";
 import { HiDotsVertical } from "react-icons/hi";
-import { useState } from "react";
+import { use, useState } from "react";
+import { MyContext } from "../provider/ContextProvider";
 
 const DashboardAside = () => {
   const [open, setOpen] = useState(false);
+  const {role} = use(MyContext);
 
   const linkClass = ({ isActive }) =>
     `flex items-center gap-3 px-4 py-3 rounded-lg font-medium transition 
@@ -44,7 +46,7 @@ const DashboardAside = () => {
           <h2 className="text-2xl font-bold text-red-600">
             Blood<span className="text-gray-800">Care</span>
           </h2>
-          <p className="text-sm text-gray-500">Donor Dashboard</p>
+          <p className="text-sm text-gray-500">{`${role.toUpperCase()} Dashboard`}</p>
         </div>
 
         <nav className="space-y-2">

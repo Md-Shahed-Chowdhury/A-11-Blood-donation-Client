@@ -10,6 +10,8 @@ import {
   signOut,
 } from "firebase/auth";
 import auth from "../firebase/firebase.init";
+import useAxios, { axiosInstance } from "../hooks/useAxios";
+import axios from "axios";
 
 export const MyContext = createContext(null);
 //email register
@@ -33,9 +35,12 @@ const passReset = (email) => {
 const logOut = () => {
   return signOut(auth);
 };
+ 
 const ContextProvider = ({ children }) => {
   const [user, setUser] = useState(null);
   const [loading, setLoading] = useState(true);
+  const [role,setRole] = useState(null);
+  
   const contextData = {
     emailRegister,
     user,
@@ -46,15 +51,21 @@ const ContextProvider = ({ children }) => {
     logOut,
     loading,
     setLoading,
+    role,
+    setRole
   };
-
+ 
+  
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
-      setLoading(false);
       setUser(currentUser);
+      axiosInstance.get(`getRole/${user?.email}`)
+      .then(data=>setRole(data.data.role));
+      setLoading(false);
+
     });
     return () => unsubscribe();
-  }, []);
+  }, [user]);
   return <MyContext value={contextData}>{children}</MyContext>;
 };
 

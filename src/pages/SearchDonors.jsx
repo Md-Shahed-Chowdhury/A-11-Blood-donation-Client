@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import {  useEffect, useState } from "react";
 import useAxios from "../hooks/useAxios";
 
 const SearchDonors = () => {
@@ -8,6 +8,7 @@ const SearchDonors = () => {
   const [filteredData, setFilteredData] = useState({});
   const [searchedDonors, setSearchedDonors] = useState([]);
   const axiosInstance = useAxios();
+
 
   // fetch district & upazila data from public folder
   useEffect(() => {
@@ -41,7 +42,6 @@ const SearchDonors = () => {
       .post("/viewSearchedDonors", filteredData)
       .then((data) => setSearchedDonors([...data.data]));
   }, [filteredData, axiosInstance]);
-  console.log(searchedDonors);
   return (
     <div className="max-w-5xl mx-auto px-4 py-10">
       <h1 className="text-3xl font-bold text-center text-red-600 mb-8">
@@ -112,7 +112,7 @@ const SearchDonors = () => {
               ))}
           </select>
         </div>
-        
+
 
         <div className="flex items-end">
           <button type="submit" className="btn btn-error w-full">

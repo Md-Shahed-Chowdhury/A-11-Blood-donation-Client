@@ -12,6 +12,9 @@ import PrivateRoute from "../pages/PrivateRoute";
 import PendingDetails from "../pages/PendingDetails";
 import SearchDonors from "../pages/SearchDonors";
 import DashboardHome from "../pages/DashboardHome";
+import EditMyRequest from "../pages/EditMyRequest";
+
+
 const router  = createBrowserRouter([
     {
         path:"/",
@@ -41,7 +44,7 @@ const router  = createBrowserRouter([
             {
                 path:"/searchDonors",
                 element:<SearchDonors></SearchDonors>
-            }
+            },
         ]
     },
     {
@@ -63,7 +66,12 @@ const router  = createBrowserRouter([
             {
                 path:"/dashboard/profile",
                 element:<Profile></Profile>
+            },
+            {
+                path:"/dashboard/edit-my-request/:id",
+                element:<EditMyRequest></EditMyRequest>
             }
+            
         ]
     }
 ])

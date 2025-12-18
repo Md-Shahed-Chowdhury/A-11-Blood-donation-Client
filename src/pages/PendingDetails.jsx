@@ -15,7 +15,6 @@ const PendingDetails = () => {
 
   const handleStatusChange = () => {
     axiosInstance.patch(`/pendingRequestUpdate/${id}`).then((data) => {
-
       if (data.data.modifiedCount > 0) {
         toast("Status updated from pending to inprogress");
         setStatusUpdate(!statusUpdate);
@@ -61,6 +60,14 @@ const PendingDetails = () => {
         </p>
 
         <p>
+          <span className="font-semibold">District:</span> {request.district}
+        </p>
+
+        <p>
+          <span className="font-semibold">Upazila:</span> {request.upazila}
+        </p>
+
+        <p>
           <span className="font-semibold">Address:</span> {request.address}
         </p>
 
@@ -96,20 +103,22 @@ const PendingDetails = () => {
         </p>
       </div>
 
-      <div className="mt-8">
-        <button
-          onClick={() => {
-            if (!user) {
-              navigate("/login");
-            } else {
-              setOpenModal(true);
-            }
-          }}
-          className="btn btn-error w-full"
-        >
-          Donate
-        </button>
-      </div>
+      {user.email != request.requesterEmail && (
+        <div className="mt-8">
+          <button
+            onClick={() => {
+              if (!user) {
+                navigate("/login");
+              } else {
+                setOpenModal(true);
+              }
+            }}
+            className="btn btn-error w-full"
+          >
+            Donate
+          </button>
+        </div>
+      )}
 
       {openModal && (
         <div className="fixed inset-0 bg-black bg-opacity-40 flex items-center justify-center z-50">

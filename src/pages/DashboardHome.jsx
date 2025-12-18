@@ -1,12 +1,13 @@
 import React, { useContext, useEffect, useState } from "react";
 import { MyContext } from "../provider/ContextProvider";
 import useAxios from "../hooks/useAxios";
-import { Link } from "react-router";
+import { Link, useNavigate} from "react-router";
 
 const DashboardHome = () => {
   const { user } = useContext(MyContext);
   const axiosInstance = useAxios();
   const [requests, setRequests] = useState([]);
+  const navigate = useNavigate();
 
   useEffect(() => {
     axiosInstance.get("/my-blood-request").then((res) => {
@@ -97,11 +98,11 @@ const DashboardHome = () => {
                         Delete
                       </button>
 
-                      <button className="btn btn-xs btn-info">
+                      <button onClick={()=>navigate(`/pendingDetails/${req._id}`)} className="btn btn-xs btn-info">
                         View
                       </button>
 
-                      <button className="btn btn-xs bg-black text-white">
+                      <button onClick={()=>navigate(`/dashboard/edit-my-request/${req._id}`)} className="btn btn-xs bg-black text-white">
                         Edit
                       </button>
                     </td>

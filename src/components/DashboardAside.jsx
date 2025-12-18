@@ -7,8 +7,8 @@ import { IoArrowBackCircle } from "react-icons/io5";
 
 const DashboardAside = () => {
   const [open, setOpen] = useState(false);
-  const {role} = use(MyContext);
-  console.log(role)
+  const { role } = use(MyContext);
+  console.log(role);
   const linkClass = ({ isActive }) =>
     `flex items-center gap-3 px-4 py-3 rounded-lg font-medium transition 
      ${
@@ -51,19 +51,45 @@ const DashboardAside = () => {
         </div>
 
         <nav className="space-y-2">
-          <NavLink to="/dashboard" end className={linkClass} onClick={() => setOpen(false)}>
+          <NavLink
+            to="/dashboard"
+            end
+            className={linkClass}
+            onClick={() => setOpen(false)}
+          >
             <FaHome /> Home
           </NavLink>
 
-          <NavLink to="/dashboard/my-donation" className={linkClass} onClick={() => setOpen(false)}>
+          <NavLink
+            to="/dashboard/my-donation"
+            className={linkClass}
+            onClick={() => setOpen(false)}
+          >
             <FaTint /> My Donation
           </NavLink>
+          {role == "admin" && (
+            <NavLink
+              to="/dashboard/all-users"
+              className={linkClass}
+              onClick={() => setOpen(false)}
+            >
+              <FaPlusCircle /> All Users
+            </NavLink>
+          )}
 
-          <NavLink to="/dashboard/create-donation" className={linkClass} onClick={() => setOpen(false)}>
+          <NavLink
+            to="/dashboard/create-donation"
+            className={linkClass}
+            onClick={() => setOpen(false)}
+          >
             <FaPlusCircle /> Create Donation
           </NavLink>
 
-          <NavLink to="/dashboard/profile" className={linkClass} onClick={() => setOpen(false)}>
+          <NavLink
+            to="/dashboard/profile"
+            className={linkClass}
+            onClick={() => setOpen(false)}
+          >
             <FaUser /> Profile
           </NavLink>
           <NavLink to="/" className={linkClass} onClick={() => setOpen(false)}>

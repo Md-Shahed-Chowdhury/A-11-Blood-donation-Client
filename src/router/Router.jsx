@@ -13,6 +13,7 @@ import PendingDetails from "../pages/PendingDetails";
 import SearchDonors from "../pages/SearchDonors";
 import DashboardHome from "../pages/DashboardHome";
 import EditMyRequest from "../pages/EditMyRequest";
+import AllUsers from "../pages/AllUsers";
 
 
 const router  = createBrowserRouter([
@@ -70,6 +71,10 @@ const router  = createBrowserRouter([
             {
                 path:"/dashboard/edit-my-request/:id",
                 element:<EditMyRequest></EditMyRequest>
+            },
+            {
+                path:"/dashboard/all-users",
+                element:<AllUsers></AllUsers>
             }
             
         ]

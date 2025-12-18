@@ -9,10 +9,16 @@ const MyDonation = () => {
   const [requests, setRequests] = useState([]);
   const [currentPage, setCurrentPage] = useState(1);
   const [totalPages, setTotalPages] = useState(0);
+  const [statusFilter, setStatusFilter] = useState("");
 
-  const fetchRequests = async (page = 1) => {
+  const fetchRequests = async (page = 1, status = "") => {
+    const query = new URLSearchParams({
+      page,
+      ...(status && { status }),
+    }).toString();
+
     const res = await axiosInstance.get(
-      `/my-blood-request-paginated?page=${page}`
+      `/my-blood-request-paginated?${query}`
     );
 
     setRequests(res.data.requests);
@@ -21,14 +27,12 @@ const MyDonation = () => {
   };
 
   useEffect(() => {
-    fetchRequests(currentPage);
-  }, [currentPage]);
+    fetchRequests(currentPage, statusFilter);
+  }, [currentPage, statusFilter]);
 
   const updateStatus = async (id, status) => {
     await axiosInstance.patch(`/update-donation-status/${id}`, { status });
-    setRequests((prev) =>
-      prev.map((r) => (r._id === id ? { ...r, status } : r))
-    );
+    fetchRequests(currentPage, statusFilter);
   };
 
   const deleteRequest = async (id) => {
@@ -36,17 +40,35 @@ const MyDonation = () => {
     if (!confirm) return;
 
     await axiosInstance.delete(`/delete-donation-request/${id}`);
-    fetchRequests(currentPage);
+    fetchRequests(currentPage, statusFilter);
   };
 
   return (
     <div className="max-w-6xl mx-auto px-4 py-8">
-      {requests.length > 0 && (
-        <>
-          <h2 className="text-xl font-semibold mb-4">
-            My All Donation Requests
-          </h2>
+      <div className="flex justify-between items-center mb-4">
+        <h2 className="text-xl font-semibold">
+          My All Donation Requests
+        </h2>
 
+        {/* Status Filter */}
+        <select
+          className="select select-bordered"
+          value={statusFilter}
+          onChange={(e) => {
+            setStatusFilter(e.target.value);
+            setCurrentPage(1);
+          }}
+        >
+          <option value="">All</option>
+          <option value="pending">Pending</option>
+          <option value="inprogress">In Progress</option>
+          <option value="done">Done</option>
+          <option value="canceled">Canceled</option>
+        </select>
+      </div>
+
+      {requests.length > 0 ? (
+        <>
           <div className="overflow-x-auto">
             <table className="table table-zebra w-full">
               <thead>
@@ -65,7 +87,7 @@ const MyDonation = () => {
                 {requests.map((req) => (
                   <tr key={req._id}>
                     <td>{req.recipientName}</td>
-                    <td>{req.address}</td>
+                    <td>{req.district}, {req.upazila}</td>
                     <td>{req.donationDate}</td>
                     <td>{req.donationTime}</td>
                     <td>{req.bloodGroup}</td>
@@ -97,9 +119,7 @@ const MyDonation = () => {
                       </button>
 
                       <button
-                        onClick={() =>
-                          navigate(`/pendingDetails/${req._id}`)
-                        }
+                        onClick={() => navigate(`/pendingDetails/${req._id}`)}
                         className="btn btn-xs btn-info"
                       >
                         View
@@ -151,6 +171,10 @@ const MyDonation = () => {
             </button>
           </div>
         </>
+      ) : (
+        <p className="text-center text-gray-500 mt-10">
+          No donation requests found.
+        </p>
       )}
     </div>
   );

@@ -99,7 +99,7 @@ const AllUsers = () => {
                     </button>
                   )}
 
-                  {u.role !== "volunteer" && (
+                  {u.role !== "volunteer" && u.role!="admin" && (
                     <button
                       onClick={() => updateRole(u.email, "volunteer")}
                       className="btn btn-xs btn-warning"

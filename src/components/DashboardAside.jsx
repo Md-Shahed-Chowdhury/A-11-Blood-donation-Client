@@ -1,5 +1,7 @@
 import { NavLink } from "react-router";
 import { FaHome, FaTint, FaPlusCircle, FaUser } from "react-icons/fa";
+import { FaUsers } from "react-icons/fa6";
+
 import { HiDotsVertical } from "react-icons/hi";
 import { use, useState } from "react";
 import { MyContext } from "../provider/ContextProvider";
@@ -60,30 +62,44 @@ const DashboardAside = () => {
             <FaHome /> Home
           </NavLink>
 
-          <NavLink
-            to="/dashboard/my-donation"
-            className={linkClass}
-            onClick={() => setOpen(false)}
-          >
-            <FaTint /> My Donation
-          </NavLink>
+          {role == "admin" && (
+            <NavLink
+              to="/dashboard/my-donation"
+              className={linkClass}
+              onClick={() => setOpen(false)}
+            >
+              <FaTint /> My Donation
+            </NavLink>
+          )}
           {role == "admin" && (
             <NavLink
               to="/dashboard/all-users"
               className={linkClass}
               onClick={() => setOpen(false)}
             >
-              <FaPlusCircle /> All Users
+              <FaUsers />
+              All Users
+            </NavLink>
+          )}
+          {role == "admin" && (
+            <NavLink
+              to="/dashboard/all-blood-donation-request"
+              className={linkClass}
+              onClick={() => setOpen(false)}
+            >
+              <FaPlusCircle /> All Donation Request
             </NavLink>
           )}
 
-          <NavLink
-            to="/dashboard/create-donation"
-            className={linkClass}
-            onClick={() => setOpen(false)}
-          >
-            <FaPlusCircle /> Create Donation
-          </NavLink>
+          {role == "donor" && (
+            <NavLink
+              to="/dashboard/create-donation"
+              className={linkClass}
+              onClick={() => setOpen(false)}
+            >
+              <FaPlusCircle /> Create Donation
+            </NavLink>
+          )}
 
           <NavLink
             to="/dashboard/profile"

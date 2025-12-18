@@ -14,6 +14,7 @@ import SearchDonors from "../pages/SearchDonors";
 import DashboardHome from "../pages/DashboardHome";
 import EditMyRequest from "../pages/EditMyRequest";
 import AllUsers from "../pages/AllUsers";
+import AllRequest from "../pages/AllRequest";
 
 
 const router  = createBrowserRouter([
@@ -75,6 +76,10 @@ const router  = createBrowserRouter([
             {
                 path:"/dashboard/all-users",
                 element:<AllUsers></AllUsers>
+            },
+            {
+                path:"/dashboard/all-blood-donation-request",
+                element:<AllRequest></AllRequest>
             }
             
         ]

@@ -9,7 +9,7 @@ const DashboardHome = () => {
   {
     return <UserHome></UserHome>
   }
-  else if(role=="admin")
+  else if(role=="admin" || role=="volunteer")
   {
     return <AdminHome></AdminHome>
   }

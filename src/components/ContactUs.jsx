@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { toast } from "react-toastify";
 
 const ContactUs = () => {
   const [formData, setFormData] = useState({
@@ -15,7 +16,7 @@ const ContactUs = () => {
     e.preventDefault();
     // For now just console.log, later you can send to backend
     console.log(formData);
-    alert("Message sent successfully!");
+    toast.success("Message sent successfully!");
     setFormData({ name: "", email: "", message: "" });
   };
 

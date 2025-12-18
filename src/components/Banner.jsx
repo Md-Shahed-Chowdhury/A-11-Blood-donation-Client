@@ -22,7 +22,7 @@ const Banner = () => {
         </button>
 
         <button
-          onClick={() => navigate("/search")}
+          onClick={() => navigate("/searchDonors")}
           className="bg-white text-red-600 font-semibold px-6 py-3 rounded-lg border-2 border-red-600 hover:bg-red-600 hover:text-white transition duration-300"
         >
           Search Donors

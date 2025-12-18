@@ -10,8 +10,8 @@ import {
   signOut,
 } from "firebase/auth";
 import auth from "../firebase/firebase.init";
-import useAxios, { axiosInstance } from "../hooks/useAxios";
-import axios from "axios";
+import { axiosInstance } from "../hooks/useAxios";
+
 
 export const MyContext = createContext(null);
 //email register
@@ -40,7 +40,7 @@ const ContextProvider = ({ children }) => {
   const [user, setUser] = useState(null);
   const [loading, setLoading] = useState(true);
   const [role, setRole] = useState(null);
-
+  const [userStatus,setUserStatus] = useState(null)
   const contextData = {
     emailRegister,
     user,
@@ -53,6 +53,8 @@ const ContextProvider = ({ children }) => {
     setLoading,
     role,
     setRole,
+    userStatus,
+    setUserStatus
   };
 
   
@@ -63,8 +65,10 @@ const ContextProvider = ({ children }) => {
       if (currentUser) {
         const res = await axiosInstance.get(`getRole/${currentUser.email}`);
         setRole(res.data.role);
+        setUserStatus(res.data.status)
       } else {
         setRole(null);
+        setUserStatus(null);
       }
 
       setLoading(false);

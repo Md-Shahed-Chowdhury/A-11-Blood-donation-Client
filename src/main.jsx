@@ -7,10 +7,10 @@ import ContextProvider from './provider/ContextProvider.jsx'
 import { ToastContainer } from 'react-toastify'
 
 createRoot(document.getElementById('root')).render(
-  <StrictMode>
+  
     <ContextProvider>
       <RouterProvider router={router}></RouterProvider>
       <ToastContainer></ToastContainer>
     </ContextProvider>
-  </StrictMode>,
+
 )

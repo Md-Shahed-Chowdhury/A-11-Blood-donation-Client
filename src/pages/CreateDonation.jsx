@@ -4,14 +4,14 @@ import { MyContext } from "../provider/ContextProvider";
 import useAxios from "../hooks/useAxios";
 
 const CreateDonation = () => {
-  const { user } = useContext(MyContext);
+  const { user,userStatus } = useContext(MyContext);
   const axiosInstance = useAxios();
   const [loading, setLoading] = useState(false);
 
   const [districts, setDistricts] = useState([]);
   const [upazilas, setUpazilas] = useState([]);
   const [selectedDistrictId, setSelectedDistrictId] = useState("");
-
+  console.log(userStatus)
   // fetch district & upazila
   useEffect(() => {
     fetch("/district.json")
@@ -61,7 +61,13 @@ const CreateDonation = () => {
 
   return (
     <div className="max-w-4xl mx-auto bg-white p-6 md:p-10 rounded-xl shadow">
-      <h1 className="text-3xl font-bold text-red-600 mb-6">
+      {
+        userStatus == "blocked"?(<h1 className="text-3xl font-bold text-red-600 mb-6">
+        You are a blocked user!Cannot make request
+      </h1>)
+        :
+        (<>
+        <h1 className="text-3xl font-bold text-red-600 mb-6">
         Create Donation Request
       </h1>
 
@@ -215,6 +221,8 @@ const CreateDonation = () => {
           {loading ? "Requesting..." : "Request Donation"}
         </button>
       </form>
+        </>)
+      }
     </div>
   );
 };

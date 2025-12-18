@@ -1,10 +1,12 @@
-import { useEffect, useState } from "react";
+import { use, useEffect, useState } from "react";
 import useAxios from "../hooks/useAxios";
 import { useNavigate } from "react-router";
+import { MyContext } from "../provider/ContextProvider";
 
 const MyDonation = () => {
   const axiosInstance = useAxios();
   const navigate = useNavigate();
+  const { role } = use(MyContext);
 
   const [requests, setRequests] = useState([]);
   const [currentPage, setCurrentPage] = useState(1);
@@ -46,9 +48,7 @@ const MyDonation = () => {
   return (
     <div className="max-w-6xl mx-auto px-4 py-8">
       <div className="flex justify-between items-center mb-4">
-        <h2 className="text-xl font-semibold">
-          My All Donation Requests
-        </h2>
+        <h2 className="text-xl font-semibold">My All Donation Requests</h2>
 
         {/* Status Filter */}
         <select
@@ -87,7 +87,9 @@ const MyDonation = () => {
                 {requests.map((req) => (
                   <tr key={req._id}>
                     <td>{req.recipientName}</td>
-                    <td>{req.district}, {req.upazila}</td>
+                    <td>
+                      {req.district}, {req.upazila}
+                    </td>
                     <td>{req.donationDate}</td>
                     <td>{req.donationTime}</td>
                     <td>{req.bloodGroup}</td>
@@ -111,28 +113,34 @@ const MyDonation = () => {
                         </>
                       )}
 
-                      <button
-                        onClick={() => deleteRequest(req._id)}
-                        className="btn btn-xs btn-error"
-                      >
-                        Delete
-                      </button>
+                      {role != "volunteer" && (
+                        <>
+                          <button
+                            onClick={() => deleteRequest(req._id)}
+                            className="btn btn-xs btn-error"
+                          >
+                            Delete
+                          </button>
 
-                      <button
-                        onClick={() => navigate(`/pendingDetails/${req._id}`)}
-                        className="btn btn-xs btn-info"
-                      >
-                        View
-                      </button>
+                          <button
+                            onClick={() =>
+                              navigate(`/pendingDetails/${req._id}`)
+                            }
+                            className="btn btn-xs btn-info"
+                          >
+                            View
+                          </button>
 
-                      <button
-                        onClick={() =>
-                          navigate(`/dashboard/edit-my-request/${req._id}`)
-                        }
-                        className="btn btn-xs bg-black text-white"
-                      >
-                        Edit
-                      </button>
+                          <button
+                            onClick={() =>
+                              navigate(`/dashboard/edit-my-request/${req._id}`)
+                            }
+                            className="btn btn-xs bg-black text-white"
+                          >
+                            Edit
+                          </button>
+                        </>
+                      )}
                     </td>
                   </tr>
                 ))}

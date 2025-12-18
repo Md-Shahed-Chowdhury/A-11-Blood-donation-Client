@@ -15,6 +15,8 @@ import DashboardHome from "../pages/DashboardHome";
 import EditMyRequest from "../pages/EditMyRequest";
 import AllUsers from "../pages/AllUsers";
 import AllRequest from "../pages/AllRequest";
+import AllFundings from "../pages/AllFundings";
+import PaymentSuccess from "../pages/PaymentSuccess";
 
 
 const router  = createBrowserRouter([
@@ -47,6 +49,14 @@ const router  = createBrowserRouter([
                 path:"/searchDonors",
                 element:<SearchDonors></SearchDonors>
             },
+            {
+                path:"/all-fundings",
+                element:<PrivateRoute><AllFundings></AllFundings></PrivateRoute>
+            },
+            {
+                path:"/payment-success",
+                element:<PaymentSuccess></PaymentSuccess>
+            }
         ]
     },
     {

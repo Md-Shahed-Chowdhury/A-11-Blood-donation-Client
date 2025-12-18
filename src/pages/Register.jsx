@@ -9,7 +9,7 @@ import axios from "axios";
 import useAxios from "../hooks/useAxios";
 
 const Register = () => {
-  const { emailRegister, setUser, googleLogin } = use(MyContext);
+  const { emailRegister, setUser } = use(MyContext);
   const [error, setError] = useState("");
   const navigate = useNavigate();
   const [visible, setVisible] = useState(false);
@@ -19,18 +19,18 @@ const Register = () => {
   const [confirmPass, setConfirmPass] = useState("");
   const axiosInstance = useAxios();
 
-  const handleGoogleLogin = () => {
-    googleLogin()
-      .then((res) => {
-        const CurrentUser = res.user;
-        toast("Login Successful");
-        setUser(CurrentUser);
-        navigate("/");
-      })
-      .catch((error) => {
-        toast(error.message);
-      });
-  };
+  // const handleGoogleLogin = () => {
+  //   googleLogin()
+  //     .then((res) => {
+  //       const CurrentUser = res.user;
+  //       toast("Login Successful");
+  //       setUser(CurrentUser);
+  //       navigate("/");
+  //     })
+  //     .catch((error) => {
+  //       toast(error.message);
+  //     });
+  // };
   const handleRegister = async (e) => {
     e.preventDefault();
     const regex = /^(?=.*[A-Z])(?=.*[a-z])(?=.*[^A-Za-z0-9]).{6,}$/;
@@ -269,10 +269,10 @@ const Register = () => {
                 login Now
               </NavLink>
             </p>
-            <hr />
+            {/* <hr />
             <button onClick={handleGoogleLogin} className="btn btn-accent mt-4">
               <FaGoogle /> Continue with Google
-            </button>
+            </button> */}
             {error && (
               <div className="font-semibold text-red-600 text-lg">{error}</div>
             )}

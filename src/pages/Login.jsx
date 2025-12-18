@@ -5,8 +5,8 @@ import { use, useState } from "react";
 import { toast } from "react-toastify";
 
 const Login = () => {
-  const [email, setEmail] = useState(null);
-  const { emailLogin, googleLogin, setUser } = use(MyContext);
+  // const [email, setEmail] = useState(null);
+  const { emailLogin, setUser } = use(MyContext);
   const { state } = useLocation();
   const navigate = useNavigate();
   const [visible, setVisible] = useState(false);
@@ -28,18 +28,18 @@ const Login = () => {
       });
   };
 
-  const handleGoogleLogin = () => {
-    googleLogin()
-      .then((res) => {
-        const CurrentUser = res.user;
-        toast("Login Successful");
-        setUser(CurrentUser);
-        state ? navigate(state) : navigate("/");
-      })
-      .catch((error) => {
-        toast(error.message);
-      });
-  };
+  // const handleGoogleLogin = () => {
+  //   googleLogin()
+  //     .then((res) => {
+  //       const CurrentUser = res.user;
+  //       toast("Login Successful");
+  //       setUser(CurrentUser);
+  //       state ? navigate(state) : navigate("/");
+  //     })
+  //     .catch((error) => {
+  //       toast(error.message);
+  //     });
+  // };
   return (
     <div>
       <div className="hero">
@@ -67,7 +67,7 @@ const Login = () => {
                     placeholder="Email"
                     name="email"
                     required
-                    onChange={(e) => setEmail(e.target.value)}
+                    // onChange={(e) => setEmail(e.target.value)}
                   />
 
                   <label className="label">Password</label>
@@ -88,7 +88,7 @@ const Login = () => {
                       {visible ? <FaEye /> : <FaEyeSlash />}
                     </button>
                   </div>
-                  <div>
+                  {/* <div>
                     <NavLink
                       className="link link-hover"
                       to="/forget-password"
@@ -96,7 +96,7 @@ const Login = () => {
                     >
                       Forgot password?
                     </NavLink>
-                  </div>
+                  </div> */}
                   <button className="btn btn-neutral mt-4">Login</button>
                 </fieldset>
               </form>
@@ -107,10 +107,10 @@ const Login = () => {
                 Register Now
               </NavLink>
             </p>
-            <hr />
+            {/* <hr />
             <button onClick={handleGoogleLogin} className="btn mt-4 btn-accent">
               <FaGoogle /> Continue with Google
-            </button>
+            </button> */}
           </div>
         </div>
       </div>

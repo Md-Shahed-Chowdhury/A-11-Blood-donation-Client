@@ -62,7 +62,7 @@ const DashboardAside = () => {
             <FaHome /> Home
           </NavLink>
 
-          {role == "admin" && (
+          {role == "donor" && (
             <NavLink
               to="/dashboard/my-donation"
               className={linkClass}
@@ -81,7 +81,7 @@ const DashboardAside = () => {
               All Users
             </NavLink>
           )}
-          {role == "admin" && (
+          {(role == "admin" || role == "volunteer") && (
             <NavLink
               to="/dashboard/all-blood-donation-request"
               className={linkClass}

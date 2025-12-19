@@ -103,7 +103,7 @@ const PendingDetails = () => {
         </p>
       </div>
 
-      {user.email != request.requesterEmail && (
+      
         <div className="mt-8">
           <button
             onClick={() => {
@@ -118,7 +118,7 @@ const PendingDetails = () => {
             Donate
           </button>
         </div>
-      )}
+     
 
       {openModal && (
         <div className="fixed inset-0 bg-black bg-opacity-40 flex items-center justify-center z-50">

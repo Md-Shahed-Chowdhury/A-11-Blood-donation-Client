@@ -17,6 +17,7 @@ import AllUsers from "../pages/AllUsers";
 import AllRequest from "../pages/AllRequest";
 import AllFundings from "../pages/AllFundings";
 import PaymentSuccess from "../pages/PaymentSuccess";
+import PageNotFound from "../layouts/PageNotFound";
 
 
 const router  = createBrowserRouter([
@@ -93,6 +94,10 @@ const router  = createBrowserRouter([
             }
             
         ]
+    },
+    {
+        path:"*",
+        element:<PageNotFound></PageNotFound>
     }
 ])
 export default router;

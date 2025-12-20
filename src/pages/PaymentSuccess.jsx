@@ -1,5 +1,5 @@
 import React, { useEffect } from "react";
-import { useSearchParams } from "react-router";
+import { Link, useSearchParams } from "react-router";
 import useAxios from "../hooks/useAxios";
 
 const PaymentSuccess = () => {
@@ -14,7 +14,7 @@ const PaymentSuccess = () => {
     <div className="flex justify-center items-center min-h-[calc(100vh-285px)]">
       <div className="flex flex-col items-center">
         <h2 className="text-green-700 text-4xl">Payment successful</h2>
-        <button className="btn bg-red-400 mt-5">Back</button>
+        <button className="btn bg-red-400 mt-5"><Link to="/all-fundings">Back</Link></button>
       </div>
     </div>
   );
